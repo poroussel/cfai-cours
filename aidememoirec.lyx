@@ -1,0 +1,4275 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass scrartcl
+\use_default_options true
+\begin_modules
+fix-cm
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language french
+\language_package auto
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 2cm
+\rightmargin 2.5cm
+\bottommargin 2.5cm
+\footskip 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language french
+\papercolumns 1
+\papersides 1
+\paperpagestyle plain
+\bullet 0 5 2 -1
+\bullet 1 0 26 -1
+\bullet 2 0 12 -1
+\bullet 3 0 8 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\family roman
+\shape smallcaps
+Aide Mémoire - Langage C/C++
+\end_layout
+
+\begin_layout Author
+Philippe Roussel
+\begin_inset Newline newline
+\end_inset
+
+
+\size small
+version 0.5
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+labelitemi{
+\backslash
+textbullet}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+labelitemii{
+\backslash
+normalfont
+\backslash
+bfseries
+\backslash
+textendash}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+labelitemiii{
+\backslash
+textasteriskcentered}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+labelitemiv{
+\backslash
+textperiodcentered}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Directives du préprocesseur
+\end_layout
+
+\begin_layout Standard
+Le préprocesseur et ses directives, qui commencent toutes par 
+\emph on
+
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\emph on
+#
+\end_layout
+
+\end_inset
+
+
+\emph default
+ en début de ligne, ne font pas à proprement parler partie du langage C.
+ Ce sont des outils permettant de manipuler le code source vu en tant que
+ fichier texte avant qu'il soit analysé par le compilateur.
+\end_layout
+
+\begin_layout Standard
+Les directives peuvent être classées en plusieurs catégories :
+\end_layout
+
+\begin_layout Subsection
+Inclusion de fichiers
+\end_layout
+
+\begin_layout LyX-Code
+#include <nom_de_fichier> /* pour les fichiers systèmes */
+\end_layout
+
+\begin_layout LyX-Code
+#include "nom_de_fichier" /* pour les fichiers locaux */
+\end_layout
+
+\begin_layout Standard
+Par exemple :
+\end_layout
+
+\begin_layout LyX-Code
+#include <stdio.h> /* inclusion de la bibliothèque stdio */
+\end_layout
+
+\begin_layout LyX-Code
+#include "adresse.h"
+\end_layout
+
+\begin_layout Subsection
+Définition de macros
+\end_layout
+
+\begin_layout Standard
+Une macro créée par la directive 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+#define
+\end_layout
+
+\end_inset
+
+ indique au préprocesseur qu'il doit remplacer une chaîne de caractères
+ par une autre, sans analyser la signification de ces chaînes.
+ Il est possible de créer des macros avec ou sans argument comme suit :
+\end_layout
+
+\begin_layout LyX-Code
+#define nom valeur
+\end_layout
+
+\begin_layout LyX-Code
+#define PI 3.14
+\end_layout
+
+\begin_layout LyX-Code
+#define carre(x) ((x)*(x))
+\end_layout
+
+\begin_layout LyX-Code
+#define somme(a, b) ((a)+(b))
+\end_layout
+
+\begin_layout Standard
+Les macros ci-dessus définies, le code C suivant :
+\end_layout
+
+\begin_layout LyX-Code
+printf("%f %d %d", PI, carre(4+1), somme(3-1, 8));
+\end_layout
+
+\begin_layout Standard
+sera traduit ainsi par le préprocesseur :
+\end_layout
+
+\begin_layout LyX-Code
+printf("%f %d %d", 3.14, ((4+1)*(4+1)), ((3-1)+(8)));
+\end_layout
+
+\begin_layout Standard
+Une macro peut être annulée par la directive 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+#undef
+\end_layout
+
+\end_inset
+
+.
+ Par exemple : 
+\end_layout
+
+\begin_layout LyX-Code
+#undef carre
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Attention aux effets de bord :
+\series default
+ l'utilisation de macros peut 
+\begin_inset Quotes fld
+\end_inset
+
+cacher
+\begin_inset Quotes frd
+\end_inset
+
+ le code réellement exécuté et rendre difficile l'inspection du code.
+ Ainsi la macro 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+carre(x)
+\end_layout
+
+\end_inset
+
+ définie plus haut référence 2 fois son argument.
+ Celui-ci sera donc évalué 2 fois, ce qui peut avoir des effets dévastateurs.
+ Par exemple le code suivant :
+\end_layout
+
+\begin_layout LyX-Code
+
+\family typewriter
+x = 4;
+\end_layout
+
+\begin_layout LyX-Code
+
+\family typewriter
+y = carre(x++);
+\end_layout
+
+\begin_layout Standard
+sera traduit ainsi :
+\end_layout
+
+\begin_layout LyX-Code
+x = 4;
+\end_layout
+
+\begin_layout LyX-Code
+y = ((x++)*(x++));
+\end_layout
+
+\begin_layout Standard
+ce qui n'est pas vraiment le comportement attendu : une fois les deux lignes
+ exécutées, x vaudra 6 au lieu des 5 attendus et y 20 eu lieu de 16.
+ Le problème n'existerait pas en utilisant une fonction 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+carre
+\end_layout
+
+\end_inset
+
+ définie ainsi :
+\end_layout
+
+\begin_layout LyX-Code
+int carre(int x)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+\paragraph_spacing single
+\noindent
+    return x * x;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Dans ce cas, le paramètre n'est évalué qu'une fois lors de l'appel de la
+ fonction.
+\end_layout
+
+\begin_layout Subsection
+Compilation conditionnelle
+\end_layout
+
+\begin_layout Standard
+Les directives 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+#if
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+#ifdef
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+#ifndef
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+#else
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+#elif
+\end_layout
+
+\end_inset
+
+ et 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+#endif
+\end_layout
+
+\end_inset
+
+ permettent de conditionner la compilation de certaines parties du code.
+ Par exemple :
+\end_layout
+
+\begin_layout LyX-Code
+#if 0   /* 0 est équivalent à Faux, les autres valeurs valant Vrai */
+\end_layout
+
+\begin_layout LyX-Code
+printf("Ces lignes ne seront pas compilées car la condition");
+\end_layout
+
+\begin_layout LyX-Code
+printf("est fausse : une valeur numérique est vraie si et");
+\end_layout
+
+\begin_layout LyX-Code
+printf("seulement si elle est différente de 0");
+\end_layout
+
+\begin_layout LyX-Code
+#endif
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+#ifdef DEBUG
+\end_layout
+
+\begin_layout LyX-Code
+printf("Ces deux lignes seront compilées si DEBUG existe");
+\end_layout
+
+\begin_layout LyX-Code
+printf("c'est-à-dire si un #define DEBUG apparaît avant");
+\end_layout
+
+\begin_layout LyX-Code
+#else
+\end_layout
+
+\begin_layout LyX-Code
+printf("Si DEBUG n'existe pas cette ligne est compilée");
+\end_layout
+
+\begin_layout LyX-Code
+#endif
+\end_layout
+
+\begin_layout Section
+Commentaires
+\end_layout
+
+\begin_layout Standard
+Les commentaires doivent soit se trouver après le marqueur 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+//
+\end_layout
+
+\end_inset
+
+ soit à l'intérieur d'un bloc de commentaire délimité par 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+/* ...
+ */
+\end_layout
+
+\end_inset
+
+.
+ Par exemple :
+\end_layout
+
+\begin_layout LyX-Code
+// Ceci est un commentaire sur une ligne
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+/* Il peut également être écrit de cette façon */
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+/*
+\end_layout
+
+\begin_layout LyX-Code
+ * Pour les commentaires nécessitant plusieurs lignes
+\end_layout
+
+\begin_layout LyX-Code
+ * ceci est le format généralement recommandé
+\end_layout
+
+\begin_layout LyX-Code
+ */
+\end_layout
+
+\begin_layout Section
+Structure d'un programme C
+\end_layout
+
+\begin_layout Standard
+Un programme C se structure généralement de la façon suivante :
+\end_layout
+
+\begin_layout LyX-Code
+/* Les inclusions de bibliothèques */
+\end_layout
+
+\begin_layout LyX-Code
+#include <stdio.h>
+\end_layout
+
+\begin_layout LyX-Code
+#include <stdlib.h>
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* Les définitions des constantes */
+\end_layout
+
+\begin_layout LyX-Code
+#define TAILLE_MAX 200
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+/* Les variables globales et les prototypes de fonctions */
+\end_layout
+
+\begin_layout LyX-Code
+int compteur;
+\end_layout
+
+\begin_layout LyX-Code
+int tableau[TAILLE_MAX];
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+int nombre_zero(int, int *);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* La fonction main appelée lors de l'exécution */
+\begin_inset Newline newline
+\end_inset
+
+int main(int argc, char *argv[])
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+    ...
+\end_layout
+
+\begin_layout LyX-Code
+    return 0;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* Le reste des fonctions */
+\end_layout
+
+\begin_layout LyX-Code
+int nombre_zero(int taille, int *tableau)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+    int nb = 0;
+\end_layout
+
+\begin_layout LyX-Code
+    ...
+\end_layout
+
+\begin_layout LyX-Code
+    return nb;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\begin_inset Newline newline
+\end_inset
+
+/* etc */
+\end_layout
+
+\begin_layout Section
+La fonction 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+main
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La fonction 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+main
+\end_layout
+
+\end_inset
+
+, qui est la première fonction exécutée lors de l'exécution du programme,
+ peut être déclarée avec plusieurs prototypes différents :
+\end_layout
+
+\begin_layout LyX-Code
+void main(void);
+\end_layout
+
+\begin_layout LyX-Code
+/* ou plus couramment */
+\end_layout
+
+\begin_layout LyX-Code
+int main(int argc, char *argv[]);
+\end_layout
+
+\begin_layout LyX-Code
+/* ou plus rarement */
+\end_layout
+
+\begin_layout LyX-Code
+int main(int argc, char *argv[], char *env[]);
+\end_layout
+
+\begin_layout Standard
+Dans la seconde variante, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+argc
+\end_layout
+
+\end_inset
+
+ représente le nombre d'éléments présents dans la tableau de chaînes de
+ caractères 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+argv
+\end_layout
+
+\end_inset
+
+.
+ Ce tableau est initialisé par le système lors du lancement du programme
+ : le premier élément contient le nom du programme exécuté et les éléments
+ suivants les éventuels paramètres passés au programme.
+ Par exemple, si j'exécute le programme 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+copiefichier.exe
+\end_layout
+
+\end_inset
+
+ de la façon suivante dans une fenêtre dos :
+\end_layout
+
+\begin_layout LyX-Code
+copiefichier.exe fichier_origine.txt fichier_destination.txt
+\end_layout
+
+\begin_layout Standard
+la fonction 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+main
+\end_layout
+
+\end_inset
+
+ sera appelée avec 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+argc = 3
+\end_layout
+
+\end_inset
+
+ et le tableau 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+argv
+\end_layout
+
+\end_inset
+
+ suivant :
+\end_layout
+
+\begin_layout LyX-Code
+argv[0] = "copiefichier.exe"
+\end_layout
+
+\begin_layout LyX-Code
+argv[1] = "fichier_origine.txt"
+\end_layout
+
+\begin_layout LyX-Code
+argv[2] = "fichier_destination.txt"
+\end_layout
+
+\begin_layout Section
+Variables et types
+\end_layout
+
+\begin_layout Standard
+La langage C est dit 
+\emph on
+statiquement typé,
+\emph default
+ ce qui signifie que le type de chaque variable est défini explicitement
+ par le programme et que ce type ne peut pas être modifié durant l'exécution.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:types-entiers"
+
+\end_inset
+
+Types entiers : char, short, int, etc
+\end_layout
+
+\begin_layout Standard
+La différence entre ces types est uniquement sur le nombre d’octets de codage
+ en mémoire : 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series medium
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\series medium
+char
+\end_layout
+
+\end_inset
+
+
+\series default
+ entier sur 1 octet (-128 à 127).
+ Également utilisé pour stocker les caractères ASCII
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series medium
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\series medium
+short
+\end_layout
+
+\end_inset
+
+
+\series default
+ entier sur 2 octets (-32768 à 32767)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series medium
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\series medium
+int
+\end_layout
+
+\end_inset
+
+
+\series default
+ entier sur 2 ou 4 octets suivant le compilateur et l'architecture
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series medium
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\series medium
+long
+\begin_inset space ~
+\end_inset
+
+int
+\end_layout
+
+\end_inset
+
+
+\series default
+ entier sur 4 octets (-2 147 483 648 à 2 147 483 647) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series medium
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\series medium
+long
+\end_layout
+
+\end_inset
+
+
+\series default
+ raccourci pour 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+long int
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ces types entiers peuvent tous être précédés du mot-clé 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+unsigned
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ pour les transformer en entiers non signés :
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+unsigned
+\begin_inset space ~
+\end_inset
+
+char
+\end_layout
+
+\end_inset
+
+ 0 à 255
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+unsigned
+\begin_inset space ~
+\end_inset
+
+short
+\end_layout
+
+\end_inset
+
+ 0 à 65535
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+unsigned
+\begin_inset space ~
+\end_inset
+
+int
+\end_layout
+
+\end_inset
+
+
+\series bold
+ 
+\series default
+entier non signé sur 2 ou 4 octets suivant le compilateur et l'architecture
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+unsigned
+\begin_inset space ~
+\end_inset
+
+long
+\end_layout
+
+\end_inset
+
+ 0 à 4 294 967 295
+\end_layout
+
+\begin_layout Subsection
+Types réels : float, double
+\end_layout
+
+\begin_layout Standard
+La représentation flottante utilise une mantisse et un exposant codé́s sur
+ un certain nombre d’octets :
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+float
+\end_layout
+
+\end_inset
+
+
+\series default
+ réel sur 4 octets (3,4e
+\begin_inset Formula $^{-38}$
+\end_inset
+
+ à 1,7e
+\begin_inset Formula $^{38}$
+\end_inset
+
+, 7 chiffres significatifs)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+double
+\end_layout
+
+\end_inset
+
+
+\series default
+ réel sur 8 octets (1,7e
+\begin_inset Formula $^{-308}$
+\end_inset
+
+ à 3,4e
+\begin_inset Formula $^{308}$
+\end_inset
+
+, 15 chiffres significatifs) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+long
+\begin_inset space ~
+\end_inset
+
+double
+\end_layout
+
+\end_inset
+
+
+\series default
+ réel sur 10 octets (3,4e
+\begin_inset Formula $^{4932}$
+\end_inset
+
+ à 1,7e
+\begin_inset Formula $^{4932}$
+\end_inset
+
+, 18 chiffres significatifs) 
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:type-void"
+
+\end_inset
+
+Type vide : void
+\end_layout
+
+\begin_layout Standard
+Le type 
+\series bold
+
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+void
+\end_layout
+
+\end_inset
+
+
+\series default
+ est un type de taille mémoire nulle, il ne peut donc pas être utilisé comme
+ type d'une variable.
+ Ses utilisations sont les suivantes :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Itemize
+signifier l'absence de paramètres dans les prototypes de fonctions (par
+ exemple la déclaration 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+void
+\begin_inset space ~
+\end_inset
+
+main(void);
+\end_layout
+
+\end_inset
+
+ correspond à une fonction n'acceptant pas de paramètres et ne retournant
+ pas de valeur)
+\end_layout
+
+\begin_layout Itemize
+déclarer des pointeurs (cf.
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:pointeurs"
+
+\end_inset
+
+) non typés (génériques), utiles pour manipuler des adresses mémoires.
+ Les fonctions d'allocation mémoire (cf.
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sub:mem-dynamique"
+
+\end_inset
+
+) comme 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+malloc
+\end_layout
+
+\end_inset
+
+ retournent des valeurs de type 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+(void
+\begin_inset space ~
+\end_inset
+
+*)
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Structures
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:declaration-variable"
+
+\end_inset
+
+Déclaration de variables
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top" width="0pt">
+<column alignment="left" valignment="top" width="0">
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Variable simple :
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+type nom;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Tableau d'éléments :
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+type nom[taille];
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Tableau à 2 dimensions :
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+type nom[largeur][hauteur];
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Pointeur sur une valeur :
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+type *nom;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Tableau de pointeurs :
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+type *nom[taille];
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Les tableaux sont indexés de 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+
+ à 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+taille-1
+\end_layout
+
+\end_inset
+
+.
+ On accède à l'élément 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+i
+\end_layout
+
+\end_inset
+
+ avec 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+nom[i]
+\end_layout
+
+\end_inset
+
+ pour un tableau à une dimension.
+\end_layout
+
+\begin_layout Section
+Fonctions
+\end_layout
+
+\begin_layout Standard
+Chaque fonction peut être prototypée ou non.
+ Dans tous les cas le prototype se place avant la déclaration, généralement
+ dans un fichier 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+.h
+\end_layout
+
+\end_inset
+
+ ou en début de fichier.
+\end_layout
+
+\begin_layout LyX-Code
+/* prototype */
+\end_layout
+
+\begin_layout LyX-Code
+type_retour nom_fonction(type
+\begin_inset Formula $_{1}$
+\end_inset
+
+ arg
+\begin_inset Formula $_{1}$
+\end_inset
+
+, ..., type
+\begin_inset Formula $_{n}$
+\end_inset
+
+, arg
+\begin_inset Formula $_{n}$
+\end_inset
+
+);
+\end_layout
+
+\begin_layout LyX-Code
+/* ou */
+\end_layout
+
+\begin_layout LyX-Code
+type_retour nom_fonction(type
+\begin_inset Formula $_{1}$
+\end_inset
+
+, ..., type
+\begin_inset Formula $_{n}$
+\end_inset
+
+);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* déclaration */
+\end_layout
+
+\begin_layout LyX-Code
+type_retour nom_fonction(type
+\begin_inset Formula $_{1}$
+\end_inset
+
+ arg
+\begin_inset Formula $_{1}$
+\end_inset
+
+, ..., type
+\begin_inset Formula $_{n}$
+\end_inset
+
+, arg
+\begin_inset Formula $_{n}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+    /* déclaration des variables locales */
+\end_layout
+
+\begin_layout LyX-Code
+    ...
+\end_layout
+
+\begin_layout LyX-Code
+    /* corps de la fonction */
+\end_layout
+
+\begin_layout LyX-Code
+    ...
+\end_layout
+
+\begin_layout LyX-Code
+    /* si type_retour est différent de 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+void
+\end_layout
+
+\end_inset
+
+ la fonction retourne une valeur */
+\end_layout
+
+\begin_layout LyX-Code
+    return valeur;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Chaque fonction doit être connue du compilateur avant sa première utilisation
+ dans le fichier source.
+ Son prototype et/ou sa déclaration doivent donc précéder cette première
+ utilisation.
+\end_layout
+
+\begin_layout Section
+Opérateurs et expressions
+\end_layout
+
+\begin_layout Standard
+Une expression est constituée d'une valeur, d'une variable, ou de la combinaison
+ de deux expressions par un opérateur arithmétique ou logique.
+ Attention, en C, par convention, une valeur nulle est fausse et une valeur
+ non nulle est vraie.
+ Toute expression a une valeur.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+opérateurs arithmétiques (addition, soustraction/négation, multiplication,
+ division et modulo) :
+\end_layout
+
+\begin_layout LyX-Code
++ - * / %
+\end_layout
+
+\begin_layout Itemize
+opérateurs logiques (conjonction, disjonction, négation et comparaisons)
+ :
+\end_layout
+
+\begin_layout LyX-Code
+&& || ! < > <= >= == !=
+\end_layout
+
+\begin_layout Itemize
+opérateurs bit à bit (et, ou, non, ou exclusif, décalage à gauche, décalage
+ à droite) :
+\end_layout
+
+\begin_layout LyX-Code
+& | ~ ^ << >>
+\end_layout
+
+\begin_layout Itemize
+pré/post incrémentation/décrémentation :
+\end_layout
+
+\begin_layout LyX-Code
+++ --
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Appliqués comme opérateur unaires pré/post-fixes à une variable.
+ Incrémente/décrémente la variable.
+ La valeur de l'expression est soit la valeur de la variable (si l'opérateur
+ est postfixe, c'est à dire placé après la variable), soit la valeur de
+ la variable une fois incrémentée/décrémentée (si l'opérateur est préfixe,
+ placé avant la variable).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+affectations :
+\end_layout
+
+\begin_layout LyX-Code
+= += -= *= /= %= |= &= ^= <<= >>=
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Affecte la valeur en partie droite de l'expression à la variable en partie
+ gauche, pour l'égalité simple =.
+ Pour la composition d'un opérateur avec l'affectation, affecte à la variable
+ en partie gauche le résultat de l'opérateur appliqué à la valeur en partie
+ gauche et à la valeur en partie droite.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Exemple :
+\end_layout
+
+\begin_layout LyX-Code
+/* Les expressions suivantes ont le même effet et la même valeur */
+\end_layout
+
+\begin_layout LyX-Code
+i = i + 1;
+\end_layout
+
+\begin_layout LyX-Code
+i += 1;
+\end_layout
+
+\begin_layout LyX-Code
+++i;
+\end_layout
+
+\begin_layout LyX-Code
+/* L'expression suivante à le même effet mais pas la même valeur */
+\end_layout
+
+\begin_layout LyX-Code
+i++;
+\end_layout
+
+\begin_layout Section
+Instructions
+\end_layout
+
+\begin_layout Standard
+Une instruction est soit une expression, soit une structure de contrôle,
+ soit un bloc d'instructions délimité par 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+ et 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+.
+ Toute instruction, à l'exception d'un bloc d'instructions, doit être suivie
+ d'un point-virgule;
+\end_layout
+
+\begin_layout LyX-Code
+/* une instruction */
+\end_layout
+
+\begin_layout LyX-Code
+i = 0;
+\end_layout
+
+\begin_layout LyX-Code
+/* un bloc */
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_layout LyX-Code
+    i = 0;
+\end_layout
+
+\begin_layout LyX-Code
+    j = 1;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Section
+Structures de contrôle
+\end_layout
+
+\begin_layout Subsection
+Condition si sinon :
+\end_layout
+
+\begin_layout Standard
+Permet de modifier le parcours du programme en fonction de la valeur logique
+ d'une expression.
+\end_layout
+
+\begin_layout LyX-Code
+if (expression)
+\end_layout
+
+\begin_layout LyX-Code
+    instruction
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Standard
+ou
+\end_layout
+
+\begin_layout LyX-Code
+if (expression)
+\end_layout
+
+\begin_layout LyX-Code
+    instruction
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+;
+\end_layout
+
+\begin_layout LyX-Code
+else
+\end_layout
+
+\begin_layout LyX-Code
+    instruction
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Standard
+Si l'expression est vraie, exécute 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+instruction
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, sinon exécute 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+instruction
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ le cas échéant.
+ Les 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+instruction
+\end_layout
+
+\end_inset
+
+s sont définies à la section 8.
+\end_layout
+
+\begin_layout Subsection
+Répétition tant que :
+\end_layout
+
+\begin_layout LyX-Code
+while (expression)
+\end_layout
+
+\begin_layout LyX-Code
+\noindent
+    instruction;
+\end_layout
+
+\begin_layout Standard
+Répète 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+instruction
+\end_layout
+
+\end_inset
+
+ tant que 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+expression
+\end_layout
+
+\end_inset
+
+ est vraie.
+ Le code 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+instruction
+\end_layout
+
+\end_inset
+
+ peut donc ne pas être exécuté du tout si 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+expression
+\end_layout
+
+\end_inset
+
+ est fausse lors de sa première évaluation.
+ Le code suivant :
+\end_layout
+
+\begin_layout LyX-Code
+int i = 0;
+\end_layout
+
+\begin_layout LyX-Code
+while (i < 3) {
+\end_layout
+
+\begin_layout LyX-Code
+    printf("Itération n°%d
+\backslash
+r
+\backslash
+n", i);
+\end_layout
+
+\begin_layout LyX-Code
+    i = i + 1;
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+affichera
+\end_layout
+
+\begin_layout LyX-Code
+Itération n°0
+\end_layout
+
+\begin_layout LyX-Code
+Itération n°1
+\end_layout
+
+\begin_layout LyX-Code
+Itération n°2
+\end_layout
+
+\begin_layout Subsection
+Répétition jusqu'à :
+\end_layout
+
+\begin_layout LyX-Code
+do
+\end_layout
+
+\begin_layout LyX-Code
+    instruction;
+\end_layout
+
+\begin_layout LyX-Code
+while (expression);
+\end_layout
+
+\begin_layout Standard
+Répète 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+instruction
+\end_layout
+
+\end_inset
+
+ jusqu'à ce que l'
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+expression
+\end_layout
+
+\end_inset
+
+ soit fausse.
+ A la différence de la répétition 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+tant que
+\end_layout
+
+\end_inset
+
+, l'
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+instruction
+\end_layout
+
+\end_inset
+
+ est donc exécutée au moins une fois.
+\end_layout
+
+\begin_layout Subsection
+Boucle :
+\end_layout
+
+\begin_layout LyX-Code
+for (expression
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+; expression
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+; expression
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout LyX-Code
+    instruction;
+\end_layout
+
+\begin_layout Standard
+Évalue une (unique) fois 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+expression
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, puis tant que 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+expression
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ est vraie, exécute 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+instruction
+\end_layout
+
+\end_inset
+
+ et évalue 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+expression
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ (dans cet ordre).
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:pointeurs"
+
+\end_inset
+
+Pointeurs
+\end_layout
+
+\begin_layout Subsection
+Information et représentation
+\end_layout
+
+\begin_layout Standard
+Un processeur a pour unique fonction de traiter de l'information, c'est
+ à dire effectuer des calculs sur les données qui lui sont fournies.
+ Avec les technologies actuelles, une information est représentée par une
+ suite de valeurs numériques, chaque élément de cette suite correspondant
+ à une zone élémentaire de la mémoire, généralement un 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+octet
+\end_layout
+
+\end_inset
+
+ (8 bits qui peuvent exprimer 256 valeurs, de 0 à 255).
+\end_layout
+
+\begin_layout Standard
+Il est important de comprendre que toute information (texte, son, image,
+ vidéo, mesures physiques, programme, etc) peut être représentée, même si
+ c'est imparfaitement, par une suite de nombres.
+ Le cas du texte est le plus simple : si je fais correspondre à chaque lettre
+ de l'alphabet un nombre qui est sa position dans la liste (de 1 à 26) et
+ que je donne à l'espace la valeur 0, je peux facilement 
+\begin_inset Quotes fld
+\end_inset
+
+traduire
+\begin_inset Quotes frd
+\end_inset
+
+ un texte :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="13">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0pt">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+j
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+e
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+c
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+o
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+i
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+p
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+i
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+19
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Chaque élément du texte pouvant être codé à l'aide d'une valeur entière
+ positive inférieure à 256, nous pouvons utiliser un octet par élément/lettre.
+ Le texte ci-dessus peut donc être représenté en mémoire par une suite de
+ 13 octets consécutifs
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Il existe de multiples façons de représenter du texte et celle présentée
+ ci-dessus est loin d'être optimale et ne correspond pas à la représentation
+ habituelle du langage C.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Les phénomènes et quantités physiques sont par nature analogiques.
+ La température par exemple peut être représentée par un nombre réel variant
+ de façon continue : il existe une infinité de valeurs, y compris entre
+ deux valeurs proches (quelles que soient les températures 
+\begin_inset Formula $t_{1}$
+\end_inset
+
+ et 
+\begin_inset Formula $t_{2}$
+\end_inset
+
+ telles que 
+\begin_inset Formula $t_{1}<t_{2}$
+\end_inset
+
+, il existe 
+\begin_inset Formula $t_{3}$
+\end_inset
+
+ telle que 
+\begin_inset Formula $t_{1}<t_{3}<t_{2}$
+\end_inset
+
+, par exemple 
+\begin_inset Formula $t_{3}=\frac{t_{1}+t_{2}}{2}$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+La représentation numérique (informatique) de ces quantités nécessite la
+ plupart du temps une quantification, c'est à dire l'attribution d'une valeur
+ prise dans un ensemble 
+\emph on
+fini
+\emph default
+ de valeurs.
+ Le choix de l'ensemble de valeurs est déterminé par le type de quantité
+ étudiée ainsi que par l'usage qui sera fait des données.
+\end_layout
+
+\begin_layout Standard
+On peut ainsi choisir de représenter des températures par le type 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+unsigned long
+\end_layout
+
+\end_inset
+
+, qui permet d'exprimer des valeurs entières de 0 à 4 294 967 295 sur 4
+ octets (voir 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sub:types-entiers"
+
+\end_inset
+
+), si les températures étudiées sont exprimées en 
+\emph on
+kelvin
+\emph default
+ (donc supérieures ou égales à 0) et qu'une précision d'un degré suffit
+ (l'étude de la température des astres vient à l'esprit).
+\end_layout
+
+\begin_layout Standard
+Si l'on souhaite au contraire représenter les températures extérieures à
+ Dole en degrés 
+\emph on
+celsius
+\emph default
+, l'utilisation du type 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+
+, sur 4 octets également, permettra la représentation de nombres réels négatifs
+ et positifs avec une précision suffisante.
+\end_layout
+
+\begin_layout Standard
+La numérisation de données évoluant dans le temps et/ou dans l'espace nécessite
+ un échantillonnage : une valeur quantifiée est extraite à intervalle régulier.
+ Dans le cas du CD audio par exemple, une valeur sur 16 bits est extraite
+ 44100 fois par seconde pour chaque canal.
+\end_layout
+
+\begin_layout Subsection
+Mémoire et adressage
+\end_layout
+
+\begin_layout Standard
+Pour un programme utilisateur (les choses étant plus compliquées au niveau
+ du système d'exploitation), la mémoire se présente sous la forme d'un immense
+ tableau à 1 dimension de 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+
+ octets, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+
+ valant en théorie 
+\begin_inset Formula $2^{32}$
+\end_inset
+
+ (soit 4 294 967 296) pour une architecture 32 bits par exemple.
+ L'indice de chaque élément (octet) de ce tableau est ce qu'on appelle son
+ adresse.
+ Il varie entre 0 et 
+\begin_inset Formula $2^{32}-1$
+\end_inset
+
+ (soit 4 294 967 295) pour cette même architecture.
+\end_layout
+
+\begin_layout Standard
+Une zone mémoire est un sous-ensemble de la mémoire globale qui débute à
+ une adresse 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+start
+\end_layout
+
+\end_inset
+
+ et s'étend sur 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+length
+\end_layout
+
+\end_inset
+
+ octets, avec 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+start + length ≤ n
+\end_layout
+
+\end_inset
+
+.
+ Chaque donnée traitée par un programme sera à un moment donné représentée
+ par une suite d'octets accessibles dans une zone mémoire définie par son
+ adresse de départ et sa taille (une exception à cette règle étant les données
+ temporaires, par exemple le compteur d'une boucle, qui peuvent n'apparaître
+ que dans les registres du processeur).
+ On peut donc faire référence à une donnée soit par sa valeur soit par son
+ adresse en mémoire.
+\end_layout
+
+\begin_layout Subsection
+Définition des pointeurs
+\end_layout
+
+\begin_layout Standard
+Les pointeurs représentent des adresses mémoires.
+ Les variables de type pointeur contiennent donc toutes un nombre entier
+ non signé, l'indice dans le tableau mémoire, quelle que soit la donnée
+ dont le pointeur est l'adresse.
+\end_layout
+
+\begin_layout Standard
+La taille d'une variable de type pointeur n'a rien à voir avec la valeur
+ pointée (un nombre, une chaîne de caractères, une structure, etc).
+ Elle ne dépend que de la taille du type numérique permettant de représenter
+ des nombres assez grands pour accéder à toute la mémoire.
+ Dans une architecture 32 bits classique, l'espace mémoire adressable est
+ composé de 
+\begin_inset Formula $2^{32}$
+\end_inset
+
+ octets, les pointeurs doivent donc pouvoir stocker 
+\begin_inset Formula $2^{32}$
+\end_inset
+
+ adresses différentes et sont codés sur 4 octets (32 bits).
+\end_layout
+
+\begin_layout Subsection
+Déclaration et utilisation
+\end_layout
+
+\begin_layout Standard
+Une variable de type pointeur se déclare de la façon suivante (cf.
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sub:declaration-variable"
+
+\end_inset
+
+) :
+\end_layout
+
+\begin_layout LyX-Code
+type_pointé * nom_variable;
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+type_pointé
+\end_layout
+
+\end_inset
+
+ décrit le type de la valeur stockée à l'adresse contenue par 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+nom_variable
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+type_pointé
+\end_layout
+
+\end_inset
+
+ peut-être un type système (
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+char
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+int
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+
+, etc) ou un type défini par l'utilisateur via 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+typedef
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+struct
+\end_layout
+
+\end_inset
+
+, etc.
+\end_layout
+
+\begin_layout Standard
+On accède à la valeur pointée ainsi :
+\end_layout
+
+\begin_layout LyX-Code
+// Lecture de la valeur stockée à l'adresse mémoire pointée
+\end_layout
+
+\begin_layout LyX-Code
+// par déférencement du pointeur
+\end_layout
+
+\begin_layout LyX-Code
+autre_variable = *nom_variable;
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+// Lecture de l'adresse contenue par la variable pointeur
+\end_layout
+
+\begin_layout LyX-Code
+autre_pointeur = nom_variable;
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+// Affectation d'une valeur, ce qui revient à copier la valeur à
+\end_layout
+
+\begin_layout LyX-Code
+// l'adresse mémoire pointée
+\end_layout
+
+\begin_layout LyX-Code
+*nom_variable = valeur;
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+// Attention, bien faire la différence avec l'affectation d'une
+\begin_inset Newline newline
+\end_inset
+
+// valeur au pointeur lui-même
+\end_layout
+
+\begin_layout LyX-Code
+nom_variable = adresse;
+\end_layout
+
+\begin_layout Standard
+Exemples de différentes déclarations :
+\end_layout
+
+\begin_layout LyX-Code
+char * p_char;
+\end_layout
+
+\begin_layout LyX-Code
+short * p_short;
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+struct point {
+\end_layout
+
+\begin_layout LyX-Code
+    int x;
+\end_layout
+
+\begin_layout LyX-Code
+    int y;
+\end_layout
+
+\begin_layout LyX-Code
+};
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+struct point * p_point;
+\end_layout
+
+\begin_layout Standard
+Pour stocker la valeur 0x1234 sur 2 octets (le type 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+short
+\end_layout
+
+\end_inset
+
+) à l'adresse 4000, on pourrait écrire (en admettant que nous avons le droit
+ d'écrire dans la mémoire à cette adresse) :
+\end_layout
+
+\begin_layout LyX-Code
+// Affectation de l'adresse au pointeur
+\end_layout
+
+\begin_layout LyX-Code
+// La valeur numérique 4000 étant par défaut un int, on indique
+\end_layout
+
+\begin_layout LyX-Code
+// au compilateur que c'est une adresse en utilisant le transtypage (cast)
+\end_layout
+
+\begin_layout LyX-Code
+p_short = (short *)4000;
+\end_layout
+
+\begin_layout LyX-Code
+// Écriture de la valeur
+\end_layout
+
+\begin_layout LyX-Code
+*p_short = 0x1234;
+\end_layout
+
+\begin_layout Standard
+Le résultat en mémoire peut être représenté ainsi (les ? désignant des valeurs
+ inconnues car non initialisées) :
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="5">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="right" valignment="top" width="0pt">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<row>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Adresse
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4001
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4002
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4003
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Valeur de l'octet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x34
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+?
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En exécutant ensuite :
+\end_layout
+
+\begin_layout LyX-Code
+p_short = (short *)4002;
+\end_layout
+
+\begin_layout LyX-Code
+*p_short = 0;
+\end_layout
+
+\begin_layout Standard
+On obtient :
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="5">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="right" valignment="top" width="0pt">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<row>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Adresse
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4001
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4002
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4003
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Valeur de l'octet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x34
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pour modifier un octet à l'adresse 4003 :
+\end_layout
+
+\begin_layout LyX-Code
+p_char = (char *)4003;
+\end_layout
+
+\begin_layout LyX-Code
+*pchar = 16;
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="5">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="right" valignment="top" width="0pt">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<row>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Adresse
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4001
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4002
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4003
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Valeur de l'octet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x34
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Quelques fonctions système utiles
+\end_layout
+
+\begin_layout Subsection
+Manipulation de chaînes de caractères
+\end_layout
+
+\begin_layout Standard
+Les fonctions suivantes sont définies dans 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+<string.h>
+\end_layout
+
+\end_inset
+
+ : 
+\end_layout
+
+\begin_layout LyX-Code
+/* 
+\end_layout
+
+\begin_layout LyX-Code
+ * Copie la chaîne de l'adresse src vers l'adresse dest
+\end_layout
+
+\begin_layout LyX-Code
+ * La copie se termine lorsque le premier caractère nul a été copié
+\end_layout
+
+\begin_layout LyX-Code
+ */
+\end_layout
+
+\begin_layout LyX-Code
+char *strcpy(char *dest, const char *src);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* Compare deux chaînes, retourne 0 en cas d'égalité */
+\end_layout
+
+\begin_layout LyX-Code
+int strcmp(const char *s1, const char *s2);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* 
+\end_layout
+
+\begin_layout LyX-Code
+ * Recherche un caractère c dans une chaîne str
+\end_layout
+
+\begin_layout LyX-Code
+ * Retourne l'adresse du premier caractère trouvé ou NULL
+\end_layout
+
+\begin_layout LyX-Code
+ */
+\end_layout
+
+\begin_layout LyX-Code
+char *strchr(const char *str, int c);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* 
+\end_layout
+
+\begin_layout LyX-Code
+ * Copie d'une chaîne avec allocation de la mémoire de destination
+\end_layout
+
+\begin_layout LyX-Code
+ * Retourne l'adresse de la nouvelle chaîne qui doit être libérée
+\end_layout
+
+\begin_layout LyX-Code
+ * par free() ou NULL en cas d'erreur
+\end_layout
+
+\begin_layout LyX-Code
+ */
+\end_layout
+
+\begin_layout LyX-Code
+char *strdup(const char *str);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* Calcule la taille d'une chaîne, caractère de fin non compris */
+\end_layout
+
+\begin_layout LyX-Code
+size_t strlen(const char *str);
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:mem-dynamique"
+
+\end_inset
+
+Gestion de la mémoire dynamique
+\end_layout
+
+\begin_layout Standard
+Les fonctions suivantes sont définies dans <alloc.h> :
+\end_layout
+
+\begin_layout LyX-Code
+/* Allocation de n octets, retourne NULL en cas d'erreur */
+\end_layout
+
+\begin_layout LyX-Code
+void *malloc(size_t n);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/*
+\end_layout
+
+\begin_layout LyX-Code
+ * Allocation de n éléments de taille unitaire t donc
+\end_layout
+
+\begin_layout LyX-Code
+ * n*t octets.
+ La mémoire allouée est mise à zéro.
+\end_layout
+
+\begin_layout LyX-Code
+ * Retourne NULL en cas d'erreur
+\end_layout
+
+\begin_layout LyX-Code
+ */
+\end_layout
+
+\begin_layout LyX-Code
+void *calloc(size_t n, size_t t);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* Libération de mémoire allouée */
+\end_layout
+
+\begin_layout LyX-Code
+void free(void *mem);
+\end_layout
+
+\begin_layout Subsection
+Manipulation de zones mémoire
+\end_layout
+
+\begin_layout Standard
+Les fonctions suivantes sont définies dans 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+<mem.h>
+\end_layout
+
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout LyX-Code
+/*
+\end_layout
+
+\begin_layout LyX-Code
+ * Copie de n octets d'une zone mémoire vers une autre
+\end_layout
+
+\begin_layout LyX-Code
+ * Retourne dest
+\end_layout
+
+\begin_layout LyX-Code
+ */
+\end_layout
+
+\begin_layout LyX-Code
+void *memcpy(void *dest, const void *src, size_t n);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/*
+\end_layout
+
+\begin_layout LyX-Code
+ * Même action que memcpy mais permet de travailler
+\end_layout
+
+\begin_layout LyX-Code
+ * sur des zones mémoires qui se chevauchent
+\end_layout
+
+\begin_layout LyX-Code
+ * Retourne dest
+\end_layout
+
+\begin_layout LyX-Code
+ */
+\end_layout
+
+\begin_layout LyX-Code
+void *memmove(void *dest, const void *src, size_t n);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/*
+\end_layout
+
+\begin_layout LyX-Code
+ * Comparaison du contenu de deux zones mémoire de n octets
+\end_layout
+
+\begin_layout LyX-Code
+ * Retourne 0 si les contenus sont identiques
+\end_layout
+
+\begin_layout LyX-Code
+ */
+\end_layout
+
+\begin_layout LyX-Code
+int memcmp(const void *mem1, const void *mem2, size_t n);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+/* Remplissage de n octets d'une zone mémoire avec la valeur v */
+\end_layout
+
+\begin_layout LyX-Code
+void memset(void *mem, int v, size_t n);
+\end_layout
+
+\begin_layout Section
+Variations autour d'un thème
+\end_layout
+
+\begin_layout Standard
+La langage C/C++ offre au développeur de multiples possibilités et c'est
+ à lui de choisir les bons outils et les bonnes techniques, c'est à dire
+ les mieux adaptés, pour résoudre les problèmes qui lui sont posés.
+\end_layout
+
+\begin_layout Standard
+Prenons comme exemple le développement d'un programme gérant un répertoire
+ téléphonique.
+ Avant de démarrer son éditeur de code préféré, le développeur doit répondre
+ à quelques questions importantes :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Itemize
+application web ou native ?
+\end_layout
+
+\begin_layout Itemize
+stockage des données dans une base de données ou dans des fichiers dont
+ le format sera à définir ?
+\end_layout
+
+\begin_layout Itemize
+disponible en plusieurs langues ?
+\end_layout
+
+\begin_layout Itemize
+quantité de données pouvant être gérées sans problème par l'application
+ ?
+\end_layout
+
+\begin_layout Itemize
+gestion de plusieurs utilisateurs ?
+\end_layout
+
+\begin_layout Itemize
+etc
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous nous intéresserons à une question essentielle : comment représenter
+ en mémoire les informations nécessaires.
+\end_layout
+
+\begin_layout Subsection
+Cahier des charges
+\end_layout
+
+\begin_layout Standard
+Le répertoire téléphonique est composé de multiples entrées, chaque entrée
+ correspondant à une personne.
+ Une personne peut être décrite par son nom, son prénom et son numéro de
+ téléphone.
+\end_layout
+
+\begin_layout Standard
+Le programme doit permettre :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Itemize
+de saisir une nouvelle entrée
+\end_layout
+
+\begin_layout Itemize
+de modifier une entrée
+\end_layout
+
+\begin_layout Itemize
+de supprimer une entrée
+\end_layout
+
+\begin_layout Itemize
+d'afficher l'ensemble du répertoire
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Version naïve
+\end_layout
+
+\begin_layout Standard
+Chaque entrée du répertoire peut-être représentée par 3 chaînes de caractères.
+ Pour stocker plusieurs entrées on peut donc utiliser 3 tableaux de chaînes
+ et un entier contenant le nombre d'entrées présentes dans les tableaux,
+ par exemple si on limite le répertoire à 200 entrées :
+\end_layout
+
+\begin_layout LyX-Code
+static char tnom[200][40];     // 200 noms de 40 caractères
+\end_layout
+
+\begin_layout LyX-Code
+static char tprenom[200][20];  // 200 prénoms de 20 caractères
+\end_layout
+
+\begin_layout LyX-Code
+static char tnumero[200][20];  // 200 numéros de 20 caractères
+\end_layout
+
+\begin_layout LyX-Code
+static int tnombre;            // nombre d'éléments dans les tableaux
+\end_layout
+
+\begin_layout Standard
+Les fonctions de manipulation des données pourraient se présenter ainsi
+ :
+\end_layout
+
+\begin_layout LyX-Code
+// retourne 1 si l'utilisateur a saisi des valeurs correctes
+\end_layout
+
+\begin_layout LyX-Code
+// les valeurs saisies sont retournées mais l'ajout de l'entrée
+\end_layout
+
+\begin_layout LyX-Code
+// au tableau doit être fait avec ajoute_entree()
+\end_layout
+
+\begin_layout LyX-Code
+int saisie_entree(char *nom, char *prenom, char *numero);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+// ajoute une entree aux tableaux, retourne l'indice de
+\end_layout
+
+\begin_layout LyX-Code
+// la nouvelle entree ou -1
+\end_layout
+
+\begin_layout LyX-Code
+int ajoute_entree(char *nom, char *prenom, char *numero);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+// retourne l'indice de l'entrée correspondant aux paramètres
+\end_layout
+
+\begin_layout LyX-Code
+// ou -1 si aucune entrée ne correspond
+\end_layout
+
+\begin_layout LyX-Code
+int recherche_entree(char *nom, char *prenom, char *numero);
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+void affiche_entree(char *nom, char *prenom, char *numero);
+\end_layout
+
+\begin_layout LyX-Code
+void affiche_repertoire(void);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Subsection
+Regroupement des données liées
+\end_layout
+
+\begin_layout Standard
+Le langage C offre la possibilité de définir des objets complexes (en opposition
+ aux types simples 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+int
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+char
+\end_layout
+
+\end_inset
+
+ etc) pouvant contenir plusieurs données de types différents : les structures.
+ Dans notre cas, nous pouvons regrouper les données représentant une entrée
+ du répertoire comme suit :
+\end_layout
+
+\begin_layout LyX-Code
+struct entree {
+\end_layout
+
+\begin_layout LyX-Code
+   char nom[40];
+\end_layout
+
+\begin_layout LyX-Code
+   char prenom[20];
+\end_layout
+
+\begin_layout LyX-Code
+   char numero[20];
+\end_layout
+
+\begin_layout LyX-Code
+};
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+// le répertoire peut être défini ainsi
+\end_layout
+
+\begin_layout LyX-Code
+static struct entree repertoire[200];
+\end_layout
+
+\begin_layout Standard
+Cette représentation d'une entrée du répertoire présente de multiples avantages
+ :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Itemize
+elle correspond à la représentation que nous nous faisons d'une entrée (nom,
+ prénom et numéro associés)
+\end_layout
+
+\begin_layout Itemize
+elle permet de représenter le répertoire par un unique tableau, plus facile
+ à utiliser, et correspond également à la représentation 
+\begin_inset Quotes fld
+\end_inset
+
+intuitive
+\begin_inset Quotes frd
+\end_inset
+
+ d'un répertoire : un tableau (ou ensemble) d'entrées
+\end_layout
+
+\begin_layout Itemize
+elle simplifie les prototypes des fonctions de manipulation des données
+\end_layout
+
+\begin_layout Itemize
+elle offre la possibilité d'ajouter de nouveaux éléments aux entrées (par
+ exemple une adresse email) sans devoir modifier les prototypes de fonctions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Les fonctions de manipulations définies précédemment deviennent :
+\end_layout
+
+\begin_layout LyX-Code
+int saisie_entree(struct *entree);
+\end_layout
+
+\begin_layout LyX-Code
+int ajoute_entree(struct *entree);
+\end_layout
+
+\begin_layout LyX-Code
+int recherche_entree(struct *entree);
+\end_layout
+
+\begin_layout LyX-Code
+void affiche_entree(struct *entree);
+\end_layout
+
+\begin_layout Standard
+Ainsi l'ajout de données aux entrées (adresse email, date de naissance etc)
+ n'entraîne pas la modification des prototypes de fonctions, les appels
+ à ces fonctions sont donc également inchangés.
+\end_layout
+
+\begin_layout Standard
+La gestion dynamique des entrées (allocation mémoire puis libération) sera
+ également simplifiée lorsqu'on voudra mettre fin aux limites imposées par
+ le tableau statique de taille fixe.
+ La création d'une nouvelle entrée se résume à l'allocation d'une zone mémoire
+ de taille suffisante avec un code semblable à :
+\end_layout
+
+\begin_layout LyX-Code
+struct entree *ne = (struct entree *)malloc(sizeof(struct entree));
+\end_layout
+
+\begin_layout Standard
+Cette représentation mémoire facilite également l'utilisation de structures
+ dynamiques telles que les listes chaînées : il suffit d'ajouter à la structure
+ les champs nécessaires.
+ Par exemple :
+\end_layout
+
+\begin_layout LyX-Code
+struct entree {
+\end_layout
+
+\begin_layout LyX-Code
+   char nom[40];
+\end_layout
+
+\begin_layout LyX-Code
+   char prenom[20];
+\end_layout
+
+\begin_layout LyX-Code
+   char numero[20];
+\end_layout
+
+\begin_layout LyX-Code
+   // pointe sur l'entrée suivante ou NULL
+\end_layout
+
+\begin_layout LyX-Code
+   // si cette entrée est la dernière de la liste
+\end_layout
+
+\begin_layout LyX-Code
+   struct entree *suivant;
+\end_layout
+
+\begin_layout LyX-Code
+};
+\end_layout
+
+\begin_layout Subsection
+Un pas plus loin : l'encapsulation des données dans une classe
+\end_layout
+
+\begin_layout Standard
+Nous venons de voir que les structures permettent de regrouper des données
+ liées entre elles.
+ Les classes permettent de franchir une étape supplémentaire : regrouper
+ les données et les fonctions qui permettent de manipuler ces données.
+ Les données deviennent des attributs de la classe et les fonctions des
+ méthodes de cette même classe.
+\end_layout
+
+\begin_layout Standard
+Une classe définit un objet par son état (les données) et son comportement
+ (le code).
+\end_layout
+
+\begin_layout Standard
+Dans le programme de répertoire on distingue facilement deux types d'objets
+ :
+\end_layout
+
+\begin_layout Itemize
+les entrées du répertoire, chacune contenant les données d'une personne
+\end_layout
+
+\begin_layout Itemize
+le répertoire lui-même qui est une collection (un ensemble d'entrées).
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La représentation objet du répertoire peut donc se faire à l'aide de deux
+ classes, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+Entree
+\end_layout
+
+\end_inset
+
+ et 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+Repertoire
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout LyX-Code
+class Entree {
+\end_layout
+
+\begin_layout LyX-Code
+    private:
+\end_layout
+
+\begin_layout LyX-Code
+        // Les données privées, accessibles uniquement par les méthodes
+\end_layout
+
+\begin_layout LyX-Code
+        char *nom;
+\end_layout
+
+\begin_layout LyX-Code
+        char *prenom;
+\end_layout
+
+\begin_layout LyX-Code
+        char *numero;
+\end_layout
+
+\begin_layout LyX-Code
+    public:
+\end_layout
+
+\begin_layout LyX-Code
+        // Constructeur sans saisie, les valeurs passées en paramètres
+\end_layout
+
+\begin_layout LyX-Code
+        Entree(char *nom, char *prenom, char *numero);
+\end_layout
+
+\begin_layout LyX-Code
+        // Destructeur
+\end_layout
+
+\begin_layout LyX-Code
+        ~Entree();
+\begin_inset Newline newline
+\end_inset
+
+        // Autres méthodes
+\end_layout
+
+\begin_layout LyX-Code
+        void saisie();
+\end_layout
+
+\begin_layout LyX-Code
+        void affiche();
+\end_layout
+
+\begin_layout LyX-Code
+        // etc
+\end_layout
+
+\begin_layout LyX-Code
+};
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+class Repertoire {
+\end_layout
+
+\begin_layout LyX-Code
+    private:
+\end_layout
+
+\begin_layout LyX-Code
+        // Tableau de pointeurs sur des instances de la classe Entree
+\end_layout
+
+\begin_layout LyX-Code
+        Entree **tab;
+\end_layout
+
+\begin_layout LyX-Code
+        // Taille du tableau
+\end_layout
+
+\begin_layout LyX-Code
+        unsigned int taille; 
+\end_layout
+
+\begin_layout LyX-Code
+        // Nombre d'éléments dans le tableau
+\end_layout
+
+\begin_layout LyX-Code
+        unsigned int nbre;
+\end_layout
+
+\begin_layout LyX-Code
+    public:
+\end_layout
+
+\begin_layout LyX-Code
+        // Constructeur par défaut, alloue le tableau tab
+\end_layout
+
+\begin_layout LyX-Code
+        Repertoire();
+\end_layout
+
+\begin_layout LyX-Code
+        ~Repertoire();
+\end_layout
+
+\begin_layout LyX-Code
+        // Ajoute une Entree au tableau tab en l'agrandissant si nécessaire
+\end_layout
+
+\begin_layout LyX-Code
+        void ajouteEntree(Entree *e);
+\end_layout
+
+\begin_layout LyX-Code
+        // Retourne true sur l'entrée en paramètre existe dans le répertoire
+\end_layout
+
+\begin_layout LyX-Code
+        bool entreeExiste(Entree *e);
+\end_layout
+
+\begin_layout LyX-Code
+};
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\end_body
+\end_document

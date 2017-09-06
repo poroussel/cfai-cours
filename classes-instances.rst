@@ -15,8 +15,6 @@ quelques autres nouveautés. Il est toutefois important de noter que cette véri
 vraiment une avec les dernières évolutions des deux langages. Ces évolutions étant gérées par deux
 instances différentes et qui semblent ne pas communiquer beaucoup, chaque langage suit désormais sa propre voie.
 
-Dans le cadre du BTS SN nous ferons abstraction des ces évolutions récentes.
-
 Le type bool
 ------------
 
@@ -115,8 +113,21 @@ Passage de valeur par référence
 
 Blah Blah Blah
 
-Signification et syntaxe
-========================
+
+Spécifités de c++11 et au-delà
+==============================
+
+Le langage C++ est, comme la plupart des langages de programmation, en évolution. À la fin des années
+90 et au début des années 2000 il a connu une période de stagnation mais depuis les années 2010 il
+connaît un nouvel élan.
+
+De nouvelles versions du langage et de la librairie standard qui l'accompagne sont désormais publiées
+tous les 3 ans : c++11, c++14, c++17 etc. Chaque nouvelle version apporte des nouveautés tant un niveau
+du langage que de la librairie. c++11 marque une évolution majeure par rapport à la norme précédente.
+
+
+Classes, instances, objets etc
+==============================
 
 Toute classe est à la fois la définition d'un nouveau type de données et de la "machine"
 qui pourra créer des objets de ce type. On appelle *instanciation* la création d'objets

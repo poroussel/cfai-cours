@@ -125,6 +125,36 @@ De nouvelles versions du langage et de la librairie standard qui l'accompagne so
 tous les 3 ans : c++11, c++14, c++17 etc. Chaque nouvelle version apporte des nouveautés tant un niveau
 du langage que de la librairie. c++11 marque une évolution majeure par rapport à la norme précédente.
 
+Typage automatique
+------------------
+
+Le mot clé `auto` permet de laisser au compilateur la responsabilité de déterminer le type 
+d'une variable. Cela ne peux évidemment fonctionner que si une valeur est spécifiée lors de 
+la déclaration de la variable.
+
+Par exemple on peut remplacer le code suivant :
+
+.. code:: c++
+
+  int compteur = 0;
+  string str = "etat";
+  vector<int> vct = vector<int>(11, 22);
+
+  for (vector<int>::iterator it = vct.begin(); it != vct.end(); it++)
+     cout << *it << '\n';
+
+par
+
+.. code:: c++
+
+  auto compteur = 0;
+  auto str = "etat";
+  auto vct = vector<int>(11, 22);
+
+  for (auto it = vct.begin(); it != vct.end(); it++)
+     cout << *it << '\n';
+
+
 
 Classes, instances, objets etc
 ==============================

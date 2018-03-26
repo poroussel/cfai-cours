@@ -62,7 +62,7 @@ définir la fonction ayant un argument obligatoire entouré de deux arguments fa
 
    /*
     * Le code suivant n'est pas valide pour une bonne raison :
-    2. il est impossible de déterminer lors de l'appel de la
+    * il est impossible de déterminer lors de l'appel de la
     * fonction si a=11, b=22 et c=2 ou si a=1, b=11 et c=22
     */
    void interdit(int a=1, int b, int c=2);
@@ -108,10 +108,47 @@ L'opérateur `delete` permet de libérer la mémoire utilisée par un objet ou u
 L'utilisation des fonctions `malloc`, `free`, `realloc` etc est possible mais un mixte des deux méthodes
 n'est pas possible pour un même objet.
 
-Passage de valeur par référence
--------------------------------
 
-Blah Blah Blah
+Passage de paramètre par référence
+----------------------------------
+
+Le passage de paramètre par référence vient s'ajouter au passage par valeur et au passage par adresse. La
+syntaxe est la suivante :
+
+.. code:: c++
+
+   void swap(int &a, int &b)
+   {
+	  int tmp = a;
+	  a = b;
+	  b = tmp;
+   }
+
+   void main(void)
+   {
+	  int i = 45;
+	  int j = 57;
+
+	  /* Inverse les valeurs de i et j */
+	  swap(i, j);
+   }
+
+Les variables `a` et `b` de la fonction `swap` font référence aux objets passés lors de l'appel, ce sont
+donc bien les valeurs de `i` et `j` qui sont échangées. L'effet est le même qu'avec un passage par
+adresse (pointeur) mais la syntaxe est simplifiée.
+
+
+Nouvelle syntaxe pour les commentaires
+--------------------------------------
+
+En `C++` un double slash `//` indique un commentaire qui se poursuit jusqu'à la fin de ligne. Par exemple :
+
+.. code:: c++
+
+   struct Point {
+	  int x; // Abcisse dans le repère orthonormé, en pixels
+	  int y;
+   };
 
 
 Spécifités de c++11 et au-delà

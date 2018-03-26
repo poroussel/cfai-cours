@@ -13,12 +13,13 @@ Le langage C++ est à l'origine un sur-ensemble du C, c'est-à-dire un langage e
 (tout programme écrit en C est compilable par un compileur C++) offrant une abstraction objet et
 quelques autres nouveautés. Il est toutefois important de noter que cette vérité n'en est plus
 vraiment une avec les dernières évolutions des deux langages. Ces évolutions étant gérées par deux
-instances différentes et qui semblent ne pas communiquer beaucoup, chaque langage suit désormais sa propre voie.
+instances différentes et qui semblent ne pas communiquer beaucoup, chaque langage suit désormais sa
+propre voie.
 
 Le type bool
 ------------
 
-Les variables booléennes ont leur propre type, bool, qui accepte deux valeurs : false et true.
+Les variables booléennes ont leur propre type, `bool`, qui accepte deux valeurs : `false` et `true`.
 
 .. code:: c++
 
@@ -69,8 +70,8 @@ définir la fonction ayant un argument obligatoire entouré de deux arguments fa
    interdit(11, 22);
 
 
-Surcharge des noms de fonctions
--------------------------------
+Surcharge des fonctions
+-----------------------
 
 Il est possible d'utiliser le même nom pour plusieurs fonctions si la signature de chacune d'elles est unique.
 La signature d'une fonction est définie par son nom, le nombre et le type de chacun de ses arguments. Le type
@@ -201,10 +202,17 @@ s'écrire ainsi :
 
 .. code:: c++
 
-   for (auto e: vct)
+   for (auto &e: vct)
       cout << e << endl;
 
 Cette syntaxe est également valide pour les tableaux hérités du langage C.
+
+
+Pointeur nul
+------------
+
+Le nouveau mot clé `nullptr` représente un pointeur nul et peut être affecté à tous les types de
+pointeurs.
 
 
 Classes, instances, objets etc
@@ -240,7 +248,7 @@ la pile (*stack*) et initialisé par la "machine" `Date`. À la fin de la foncti
 variable `var1` étant locale elle est détruite : l'espace mémoire qu'elle occupait est
 libéré.
 
-La création dynamique (allocation sur le tas ou *heap*) d'une instance d'`Date` est
+La création dynamique (allocation sur le tas ou *heap*) d'une instance de `Date` est
 sans surprise :
 
 .. code:: c++

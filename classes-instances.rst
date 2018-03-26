@@ -62,7 +62,7 @@ définir la fonction ayant un argument obligatoire entouré de deux arguments fa
 
    /*
     * Le code suivant n'est pas valide pour une bonne raison :
-    * il est impossible de déterminer lors de l'appel de la
+    2. il est impossible de déterminer lors de l'appel de la
     * fonction si a=11, b=22 et c=2 ou si a=1, b=11 et c=22
     */
    void interdit(int a=1, int b, int c=2);
@@ -122,14 +122,14 @@ Le langage C++ est, comme la plupart des langages de programmation, en évolutio
 connaît un nouvel élan.
 
 De nouvelles versions du langage et de la librairie standard qui l'accompagne sont désormais publiées
-tous les 3 ans : c++11, c++14, c++17 etc. Chaque nouvelle version apporte des nouveautés tant un niveau
+tous les 3 ans : c++11, c++14, c++17 etc. Chaque nouvelle version apporte des nouveautés tant au niveau
 du langage que de la librairie. c++11 marque une évolution majeure par rapport à la norme précédente.
 
 Typage automatique
 ------------------
 
-Le mot clé `auto` permet de laisser au compilateur la responsabilité de déterminer le type 
-d'une variable. Cela ne peux évidemment fonctionner que si une valeur est spécifiée lors de 
+Le mot clé `auto` permet de laisser au compilateur la responsabilité de déterminer le type
+d'une variable. Cela ne peut évidemment fonctionner que si une valeur est spécifiée lors de
 la déclaration de la variable.
 
 Par exemple on peut remplacer le code suivant :
@@ -154,6 +154,20 @@ par
   for (auto it = vct.begin(); it != vct.end(); it++)
      cout << *it << '\n';
 
+
+Range based for loop
+--------------------
+
+Une nouvelle variante de `for` permet de remplacer avantageusement l'utilisation des itérateurs
+lors du parcours complet d'un container. Par exemple, la boucle du paragraphe précédent peut
+s'écrire ainsi :
+
+.. code:: c++
+
+   for (auto e: vct)
+      cout << e << endl;
+
+Cette syntaxe est également valide pour les tableaux hérités du langage C.
 
 
 Classes, instances, objets etc
